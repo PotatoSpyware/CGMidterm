@@ -1,6 +1,4 @@
-using Mono.Cecil.Cil;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,24 +14,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        rb.linearVelocity.Set(speed, 0, 0);
     }
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.linearVelocity.Set(-speed, rb.linearVelocity.y, rb.linearVelocity.z);
-        }
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    rb.linearVelocity.Set(-speed, rb.linearVelocity.y, rb.linearVelocity.z);
+        //}
 
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rb.linearVelocity.Set(speed, rb.linearVelocity.y, rb.linearVelocity.z);
-        }
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+        //    rb.linearVelocity.Set(speed, rb.linearVelocity.y, rb.linearVelocity.z);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    rb.AddForce(new Vector3 (0, jump, 0));
+        //}
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "Ground")
         {
-            rb.AddForce(new Vector3 (0, jump, 0));
+            speed = -speed;
+        }
+        if (collision.gameObject.tag == "Ball")
+        {
+            rb.AddForce(0, jump, 0);
         }
     }
 }

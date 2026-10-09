@@ -6,6 +6,9 @@ public class BallBehaviour : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     [SerializeField] GameObject Score;
+    [SerializeField] Material litMat;
+    [SerializeField] Shader[] shaders;
+    int score;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,7 +32,10 @@ public class BallBehaviour : MonoBehaviour
 
         else
         {
+            score++;
             Score.SetActive(true);
+            litMat.shader = shaders[score%3];
+            rb.AddForce(new Vector3(0, bounce, 0));
         }
     }
 }
